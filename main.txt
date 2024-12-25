@@ -30,7 +30,7 @@ https://miro.com/app/board/uXjVLz9piXc=/
 4. Strategies for scaling and handling high traffic.
 
   We will also need to run our recommendation engine during low traffic hours, which will depend on the geographical area, so segregating data by geographical area would help us in handling traffic.
-  Other than that, we need to follow common practices like increasing instances during peak times with kubernetes, partitioning our database, using message brokers like rabbitmq, kafka or redis queues to fullfill asynchronous operations.
+  Other than that, we need to follow common practices like using CDNs, increasing instances during peak times with kubernetes, partitioning our database, using message brokers like rabbitmq, kafka or redis queues to fullfill asynchronous operations.
   
   
 
