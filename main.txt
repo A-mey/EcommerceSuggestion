@@ -1,0 +1,41 @@
+1. Diagram
+
+https://miro.com/app/board/uXjVLz9piXc=/
+
+2. Explaination of the recommendation engine
+
+***ingesting data***
+
+  Data will be sent to the recommendation service during certain users actions like user clicking on a product, user buying products and user reviewing the product, as well as ongoing offers against the products.
+  The recommendation engine will calculate nearest products to be stored as Content-based against particular products based on the products' metadata and tags. These products will be stored inside of "recommendation SQL Database". Another method is using the offers database, to display other products which can be bought in the offer.
+
+  Products recommendations are also to be stored against a user in our cache for the day to be showed in unrelated searches until the next calculation is to be done.
+
+  Similarly for users, we calculate the main recommedations(Recommendations we would show on the main page), by comparing users buying patterns to other users with a similar pattern. Similarly, this collaborative filtering would be calculated along side content-based filtering, and similarly the data is to be stored in the "recommendation SQL Database", which will be cached further.
+
+  User reviews and ratings would also give us more of a taste of how strongly the user likes or dislikes the product.
+
+***Retrieving data***
+
+   Data will be retrived whenever recommendations are to be shown:
+
+   Opening a product - opening a product should contain similar products as well as offer based products which were calculated by the last calculations of the recommedation engine. We will be storing the data previously fetched inside of a cache in "recommendation service".
+   Main page - Data stored against users will be shown on this page. Similar to content-based recommendations, we store the data inside of a cache in "recommendation service".
+   Misc recommendations - The data stored in the above step will be displayed at random places or third party integrations.
+
+3. Approach to caching and optimizing API response times.
+
+  We will need to cache the data which has been fetched the first time for ex. data against a product or a user. If either is not present, we will fetch it from the recommended SQL database, and store it in the cache. The cache data will be cleared upon the next calculation.
+
+4. Strategies for scaling and handling high traffic.
+
+  We will also need to run our recommendation engine during low traffic hours, which will depend on the geographical area, so segregating data by geographical area would help us in handling traffic.
+  Other than that, we need to follow common practices like increasing instances during peak times with kubernetes, partitioning our database, using message brokers like rabbitmq, kafka or redis queues to fullfill asynchronous operations.
+  
+  
+
+ 
+
+  
+  
+
